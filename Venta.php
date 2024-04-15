@@ -1,119 +1,123 @@
 <?php
+// En la clase Venta:
+// 1. Se registra la siguiente información: número, fecha, referencia al cliente, referencia a una colección de
+// motos y el precio final.
+// 2. Método constructor que recibe como parámetros cada uno de los valores a ser asignados a cada
+// atributo de la clase.
+// 3. Los métodos de acceso de cada uno de los atributos de la clase.
+// 4. Redefinir el método _toString para que retorne la información de los atributos de la clase.
+// 5. Implementar el método incorporarMoto($objMoto) que recibe por parámetro un objeto moto y lo
+// incorpora a la colección de motos de la venta, siempre y cuando sea posible la venta. El método cada
+// vez que incorpora una moto a la venta, debe actualizar la variable instancia precio final de la venta.
+// Utilizar el método que calcula el precio de venta de la moto donde crea necesario.
 
 class Venta
 {
-    //     En la clase Venta:
-
-    // 1. Se registra la siguiente información: número, fecha, referencia al cliente, referencia a una colección de
+    //número, fecha, referencia al cliente, referencia a una colección de
     // motos y el precio final.
 
-    // 2. Método constructor que recibe como parámetros cada uno de los valores a ser asignados a cada
-    // atributo de la clase.
-
-    // 3. Los métodos de acceso de cada uno de los atributos de la clase.
-
-    // 4. Redefinir el método _toString para que retorne la información de los atributos de la clase.
-
-    // 5. Implementar el método incorporarMoto($objMoto) que recibe por parámetro un objeto moto y lo
-    // incorpora a la colección de motos de la venta, siempre y cuando sea posible la venta. El método cada
-    // vez que incorpora una moto a la venta, debe actualizar la variable instancia precio final de la venta.
-    // Utilizar el método que calcula el precio de venta de la moto donde crea necesario
-
-
-    // atributos
     private $numero;
     private $fecha;
     private $objCliente;
-    private $arrayMotos;
+    private $arrMotos;
     private $precioFinal;
 
-    //constructor
 
-    public function __construct($numero, $fecha, $objCliente, $arrayMotos, $precioFinal)
+
+
+    public function __construct($numero,  $fecha, $objCliente, $arrMotos, $precioFinal)
     {
+
         $this->numero = $numero;
-        $this->fecha = $fecha;
+        $this->fecha  = $fecha;
         $this->objCliente = $objCliente;
-        $this->arrayMotos = $arrayMotos;
+        $this->arrMotos = $arrMotos;
         $this->precioFinal = $precioFinal;
     }
-
-    // METODOS DE ACCESO get
 
     public function getNumero()
     {
         return $this->numero;
     }
+
+    public function setNumero($num)
+    {
+        $this->numero = $num;
+    }
+
     public function getFecha()
     {
         return $this->fecha;
     }
+
+    public function setFecha($newFecha)
+    {
+        $this->fecha  = $newFecha;
+    }
+
     public function getObjCliente()
     {
         return $this->objCliente;
     }
-    public function getArrayMotos()
+
+    public function setObjCliente($cliente)
     {
-        return $this->arrayMotos;
+        $this->objCliente = $cliente;
     }
+
+    public function getArrMotos()
+    {
+        return $this->arrMotos;
+    }
+
+    public function setArrMotos($motos)
+    {
+        $this->arrMotos = $motos;
+    }
+
     public function getPrecioFinal()
     {
         return $this->precioFinal;
     }
 
+    public function setPrecioFinal($precio)
+    {
+        $this->precioFinal = $precio;
+    }
+    public function arrayToString($array)
+    {
+        $result = "";
+        foreach ($array as $elemento) {
+            $result = $result . $elemento . "";
+        }
+        return $result;
+    }
 
-    //metodo de acceso set 
-    public function setNumero($n)
+    public function __toString()
     {
-        return $this->numero = $n;
-    }
-    public function setFecha($f)
-    {
-        return $this->fecha = $f;
-    }
 
-    public function setObjCliente($objC)
-    {
-        return $this->objCliente = $objC;
-    }
-    public function setArrayMotos($arrayM)
-    {
-        return $this->arrayMotos = $arrayM;
-    }
-    public function SetPrecioFinal($pF)
-    {
-        return $this->precioFinal = $pF;
+        return " \n ----- Datos Moto ---- \n " .
+            "\n Numero : " . $this->getNumero() . "\n" .
+            "Fecha : " . $this->getFecha() . "\n" .
+            "Cliente : " . $this->getObjCliente() . "\n" .
+            "Coleccion Motos : " . $this->arrayToString($this->getArrMotos()) . "\n" .
+            "Precio : " . $this->getPrecioFinal() . "\n";
     }
 
 
     //5. Implementar el método incorporarMoto($objMoto) que recibe por parámetro un objeto moto y lo
     // incorpora a la colección de motos de la venta, siempre y cuando sea posible la venta. El método cada
     // vez que incorpora una moto a la venta, debe actualizar la variable instancia precio final de la venta.
-    // Utilizar el método que calcula el precio de venta de la moto donde crea necesario
+    // Utilizar el método que calcula el precio de venta de la moto donde crea necesario.
 
-    public function incorporarMoto($objMoto)//falta realizar 
+    public function incorporarMoto($objMoto)
     {
-        foreach ($objMoto as $vender) {
-            if($vender == true){
-                $newColMotos = array_push($this->getArrayMotos(), $objMoto);
-                $this->setArrayMotos($newColMotos);
-                //se pudo realizar la venta
-                $resultVenta=true;
-            }else{
-                //no se pudo realizar la venta 
-                $resultVenta=false;
-            }
+        $newPrecio = $objMoto->getPrecioFinal();
+        $enVenta = $objMoto->getActiva();
+        if ($enVenta == true) {
+            $newArrayMotos = array_push($this->getArrMotos(), $objMoto);
+            $this->setArrMotos($newArrayMotos);
+            $this->setPrecioFinal($newPrecio);
         }
-        return $resultVenta;
-    }
-
-    public function __toString()
-    {
-        return "Datos de venta \n" .
-            "numero :" . $this->getNumero() . "\n" .
-            "Fecha :" . $this->getFecha() . "\n" .
-            "Cliente" . $this->getObjCliente() . "\n" .
-            "Motos " . $this->getArrayMotos() . "\n" .
-            "Precio Final :" . $this->getPrecioFinal() . "\n";
     }
 }

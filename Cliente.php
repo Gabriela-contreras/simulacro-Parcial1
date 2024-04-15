@@ -1,78 +1,92 @@
 <?php
+// En la clase Cliente:
+// 0. Se registra la siguiente información: nombre, apellido , si está o no dado de baja , el tipo y el número de
+// documento. Si un cliente está dado de baja, no puede registrar compras desde el momento de su baja.
+// 1. Método constructor que recibe como parámetros los valores iniciales para los atributos.
+// 2. Los métodos de acceso de cada uno de los atributos de la clase.
+// 3. Redefinir el método _toString para que retorne la información de los atributos de la clase.
+
+
 class Cliente
 {
-
-    //     En la clase Cliente:
-    // 0. Se registra la siguiente información: nombre, apellido, si está o no dado de baja, el tipo y el número de
-    // documento. Si un cliente está dado de baja, no puede registrar compras desde el momento de su baja.
-    // 1. Método constructor que recibe como parámetros los valores iniciales para los atributos.
-    // 2. Los métodos de acceso de cada uno de los atributos de la clase.
-    // 3. Redefinir el método _toString para que retorne la información de los atributos de la clase.
-
-
-
-    // atributos / variables instancias
     private $nombre;
     private $apellido;
+    private $tipo;
     private $dadoBaja;
-    private $dni;
+    private $documento;
 
-    //constructor
-    public function __construct($nombre, $apellido, $dadoBaja, $dni)
+    public function __construct($nombre,  $apellido, $tipo, $dadoBaja,  $documento)
     {
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->dadoBaja = $dadoBaja;
-        $this->dni = $dni;
-    }
 
-    // metodos de acceso 
+        $this->nombre = $nombre;
+        $this->apellido  = $apellido;
+        $this->tipo = $tipo;
+        $this->dadoBaja = $dadoBaja;
+        $this->documento  = $documento;
+    }
 
     public function getNombre()
     {
         return $this->nombre;
     }
+
+    public function setNombre($n)
+    {
+        $this->nombre = $n;
+    }
+
     public function getApellido()
     {
         return $this->apellido;
+    }
+
+    public function setApellido($ap)
+    {
+        $this->apellido  = $ap;
+    }
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+    public function setTipo($t)
+    {
+        return $this->tipo = $t;
     }
     public function getDadoBaja()
     {
         return $this->dadoBaja;
     }
-    public function getDni()
+
+    public function setDadoBaja($dB)
     {
-        return $this->dni;
+        $this->dadoBaja = $dB;
     }
 
-    public function setNombre($n)
+    public function getDocumento()
     {
-        return $this->nombre = $n;
-    }
-    public function setApellido($a)
-    {
-        return $this->apellido = $a;
-    }
-    public function setDadoBaja($d)
-    {
-        return $this->dadoBaja = $d;
-    }
-    public function setDni($dni)
-    {
-        return $this->dni = $dni;
+        return $this->documento;
     }
 
-public function dadoBaja(){
-    if($this->getDadoBaja()==true){
-
+    public function setDocumento($doc)
+    {
+        $this->documento  = $doc;
     }
-}
+    public function Baja()
+    {
+        if ($this->getDadoBaja() == true) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+        return $result;
+    }
     public function __toString()
     {
-        return "Datos del cliente \n" .
-            "Nombre:" . $this->getNombre() . "\n" .
-            "Apellido:" . $this->getApellido() . "\n" .
-            "DNI:" . $this->getDni() . "\n" .
-            "Dado de baja :" . $this->getDadoBaja(). "\n";
+        return " \n ----Datos cliente---- \n" .
+            "\n nombre : " . $this->getNombre() . "\n" .
+            "apellido : " . $this->getApellido() . "\n" .
+            "dado de baja : " . $this->Baja() . "\n" .
+            "tipo : " . $this->getTipo() . "\n" .
+            "Documento : " . $this->getDocumento()  . "\n ";
     }
 }
