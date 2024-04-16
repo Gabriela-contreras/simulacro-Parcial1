@@ -50,7 +50,7 @@ class Cliente
     }
     public function setTipo($t)
     {
-        return $this->tipo = $t;
+         $this->tipo = $t;
     }
     public function getDadoBaja()
     {
@@ -82,10 +82,15 @@ class Cliente
     }
     public function __toString()
     {
+        if($this->getBaja()==true){
+			$result="  Esta dado de baja  ";
+		}else{
+			$result=" No esta dado de baja ";
+		}
         return " \n ----Datos cliente---- \n" .
             "\n nombre : " . $this->getNombre() . "\n" .
             "apellido : " . $this->getApellido() . "\n" .
-            "dado de baja : " . $this->Baja() . "\n" .
+            "dado de baja : " . $result . "\n" .
             "tipo : " . $this->getTipo() . "\n" .
             "Documento : " . $this->getDocumento()  . "\n ";
     }
